@@ -10,6 +10,7 @@
   font-weight: 400px;
   font-size: 1.25rem;
   border-radius: 20px;
+  gap: 50px;
 }
 .wrapper > div {
   display: flex;
@@ -18,8 +19,18 @@
 }
 
 img {
+  margin-bottom: 40px;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   box-shadow: -1px 0px 11px 0px rgba(0, 0, 0, 0.83);
+}
+.buttonWrapper {
+  padding: 10px;
+}
+.buttonWrapper > button {
+  padding: inherit;
+  border: transparent;
+  background: rgb(224, 233, 228);
+  cursor: pointer;
 }

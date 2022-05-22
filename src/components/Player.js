@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Player = () => {
   const [tracks, setTracks] = useState(songs);
   const [currentSong, setCurrentSong] = useState(0);
-  const [nextSong, setNextSong] = useState(0);
   const [isPlay, setIsPlay] = useState(false);
   const [song, setSong] = useState(tracks[currentSong]);
   const audioRef = useRef(null);
@@ -23,32 +22,33 @@ const Player = () => {
     } else {
       audioRef.current.pause();
     }
-  }, [isPlay]);
+  });
 
-  const skipSong = () => {
+  const skipSong = (forwards = true) => {
     setCurrentSong(() => {
-      let nextSongId = currentSong + 1;
-      if (nextSongId > tracks.length - 1) {
-        nextSongId = 0;
-        return nextSongId;
+      let next = currentSong + 1;
+      if (forwards) {
+        if (next > tracks.length - 1) {
+          next = 0;
+          return next;
+        }
+        return next;
+      } else {
+        let prev = currentSong - 1;
+        if (prev < 0) {
+          prev = tracks.length - 1;
+          return prev;
+        }
+        return prev;
       }
-      if (nextSongId < 0) {
-        nextSongId = tracks.length - 1;
-        return nextSongId;
-      }
-      return nextSongId;
     });
   };
+  useEffect(() => {
+    setSong(tracks[currentSong]);
+  }, [currentSong]);
+  console.log(isPlay);
 
-  const shoNext = (forWard) => {
-    if (forWard) {
-      setNextSong(currentSong + 1);
-    } else {
-      setNextSong(currentSong - 1);
-    }
-  };
   const { src, img_src, artist, title } = song;
-  console.log(src);
 
   return (
     <div className={styles.wrapper}>
@@ -60,9 +60,19 @@ const Player = () => {
         <img src={img_src} alt="image" />
         <p>{artist}</p>
         <span>{title}</span>
-        <button onClick={() => setIsPlay(!isPlay)}>
-          <FontAwesomeIcon icon={isPlay ? faPause : faPlay} />
-        </button>
+        <div className={styles.buttonWrapper}>
+          <button onClick={() => skipSong(false)}>
+            <FontAwesomeIcon icon={faBackward} />
+          </button>
+
+          <button onClick={() => setIsPlay(!isPlay)}>
+            <FontAwesomeIcon icon={isPlay ? faPause : faPlay} />
+          </button>
+          <button onClick={() => skipSong()}>
+            {" "}
+            <FontAwesomeIcon icon={faForward} />
+          </button>
+        </div>
       </div>
     </div>
   );

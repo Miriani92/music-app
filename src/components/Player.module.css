@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  background: rgb(224, 233, 228);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-weight: 400px;
+  font-size: 1.25rem;
+  border-radius: 20px;
+}
+.wrapper > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: -1px 0px 11px 0px rgba(0, 0, 0, 0.83);
+}
